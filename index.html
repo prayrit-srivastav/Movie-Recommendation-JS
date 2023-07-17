@@ -1,289 +1,286 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Movie Recommendation</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400&family=Fredoka+One&family=Questrial&family=Staatliches&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/e918d10e90.js" crossorigin="anonymous"></script>
-    <!-- <script defer src="public/helper.js"></script> -->
-    <style>
-        body {
-        background-color: #eb6882;
-        color: #0a0408;
-        }
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="utf-8">
+      <title>Movie Recommendation</title>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400&family=Fredoka+One&family=Questrial&family=Staatliches&display=swap" rel="stylesheet">
+      <script src="https://kit.fontawesome.com/e918d10e90.js" crossorigin="anonymous"></script>
+      <!-- <script defer src="public/helper.js"></script> -->
+      <style>
+          body {
+          background-color: #eb6882;
+          color: #0a0408;
+          }
 
-        #appTitle {
-        text-align: center;
-        margin: 0px auto;
-        display: block;
-        font-family: 'Staatliches', sans-serif;
-        font-size: 80px;
-        }
+          #appTitle {
+          text-align: center;
+          margin: 0px auto;
+          display: block;
+          font-family: 'Staatliches', sans-serif;
+          font-size: 80px;
+          }
 
-        #genreForm, #playBtn {
-        text-align: center;
-        margin: 0px auto;
-        display: block;
-        font-family: 'Fredoka One', sans-serif;
-        }
+          #genreForm, #playBtn {
+          text-align: center;
+          margin: 0px auto;
+          display: block;
+          font-family: 'Fredoka One', sans-serif;
+          }
 
-        #movieInfo {
-        width:  65%;
-        margin:  32px auto;
-        }
+          #movieInfo {
+          width:  65%;
+          margin:  32px auto;
+          }
 
-        #movieInfo:after {
-        content:  "";
-        display:  table;
-        clear:  both;
-        }
+          #movieInfo:after {
+          content:  "";
+          display:  table;
+          clear:  both;
+          }
 
-        #moviePoster, #movieText {
-        width:  50%;
-        float:  left;
-        }
+          #moviePoster, #movieText {
+          width:  50%;
+          float:  left;
+          }
 
-        img#moviePoster {
-        width:  100%;
-        height:  auto;
-        display:  block;
-        margin:  auto;
-        }
+          img#moviePoster {
+          width:  100%;
+          height:  auto;
+          display:  block;
+          margin:  auto;
+          }
 
-        #movieText {
-        font-family: 'Questrial';
-        color: #FEFBEA;
-        line-height: 1.25;
-        }
+          #movieText {
+          font-family: 'Questrial';
+          color: #FEFBEA;
+          line-height: 1.25;
+          }
 
-        #movieTitle, #movieOverview {
-        padding:  32px;
-        }
+          #movieTitle, #movieOverview {
+          padding:  32px;
+          }
 
-        #playBtn {
-        margin-top: 20px;
-        font-size: 25px;
-        padding: 7px 10px;
-        border-radius: 10px;
-        border-style: none;
-        background-color: #B97828;
-        color: #fdc238;
-        cursor:  pointer;
-        }
+          #playBtn {
+          margin-top: 20px;
+          font-size: 25px;
+          padding: 7px 10px;
+          border-radius: 10px;
+          border-style: none;
+          background-color: #B97828;
+          color: #fdc238;
+          cursor:  pointer;
+          }
 
-        label {
-        display: block;
-        font-size: 35px;
-        margin-bottom: 5px;
-        }
+          label {
+          display: block;
+          font-size: 35px;
+          margin-bottom: 5px;
+          }
 
-        select {
-        width: 200px;
-        height: auto;
-        }
+          select {
+          width: 200px;
+          height: auto;
+          }
 
-        #likeOrDislikeBtns {
-        text-align: center;
-        margin: 0px auto;  
-        }
+          #likeOrDislikeBtns {
+          text-align: center;
+          margin: 0px auto;  
+          }
 
-        #likeBtn, #dislikeBtn {
-        padding: 15px 25px;
-        font-size: 25px;
-        border-radius: 12px;
-        border-style: none;
-        cursor:  pointer;
-        }
+          #likeBtn, #dislikeBtn {
+          padding: 15px 25px;
+          font-size: 25px;
+          border-radius: 12px;
+          border-style: none;
+          cursor:  pointer;
+          }
 
-        #likeBtn {
-        background-color: #249e57;
-        color: darkgreen;
-        }
+          #likeBtn {
+          background-color: #249e57;
+          color: darkgreen;
+          }
 
-        #dislikeBtn {
-        background-color: #c74a4a;
-        color: #910000;
-        }
-    </style>
-  </head>
-  <body>
-    <header>
-      <h1 id="appTitle">Movie Recommendation</h1>
-    </header>
-    <form id="genreForm">
-      <label>Choose a genre:</label>
-      <select name="genres" id="genres">
-      </select>
-    </form>
-    <button id="playBtn">Search</button>
-    <div id="movieInfo">
-      <div id="moviePoster"></div>
-      <div id="movieText"></div>
-    </div>
-    <div id="likeOrDislikeBtns" hidden>
-      <button id="likeBtn"><i class="fa-solid fa-thumbs-up"></i></button>
-      <button id="dislikeBtn"><i class="fa-solid fa-thumbs-down"></i></button>
-    </div>
-    <script>
-                
-        function populateGenreDropdown(genres) {
-        const select = document.getElementById('genres');
+          #dislikeBtn {
+          background-color: #c74a4a;
+          color: #910000;
+          }
+      </style>
+    </head>
+    <body>
+      <header>
+        <h1 id="appTitle">Movie Recommendation</h1>
+      </header>
+      <form id="genreForm">
+        <label>Choose a genre:</label>
+        <select name="genres" id="genres">
+        </select>
+      </form>
+      <button id="playBtn">Search</button>
+      <div id="movieInfo">
+        <div id="moviePoster"></div>
+        <div id="movieText"></div>
+      </div>
+      <div id="likeOrDislikeBtns" hidden>
+        <button id="likeBtn">Next</button>
+        <!-- <button id="dislikeBtn"><i class="fa-solid fa-thumbs-down"></i></button> -->
+      </div>
+      <script>
+                  
+          function populateGenreDropdown(genres) {
+          const select = document.getElementById('genres');
 
-        for (const genre of genres) {
-        let option = document.createElement('option');
-        option.value = genre.id;
-        option.text = genre.name;
-        select.appendChild(option);
-        }
-        }
+          for (const genre of genres) {
+          let option = document.createElement('option');
+          option.value = genre.id;
+          option.text = genre.name;
+          select.appendChild(option);
+          }
+          }
 
-        function getSelectedGenre() {
-        const selectedGenre = document.getElementById('genres').value;
-        return selectedGenre;
-        }
+          function getSelectedGenre() {
+          const selectedGenre = document.getElementById('genres').value;
+          return selectedGenre;
+          }
 
-        function showBtns() {
-        const btnDiv = document.getElementById('likeOrDislikeBtns');
-        btnDiv.removeAttribute('hidden');
-        }
+          function showBtns() {
+          const btnDiv = document.getElementById('likeOrDislikeBtns');
+          btnDiv.removeAttribute('hidden');
+          }
 
-        function clearCurrentMovie() {
-        const moviePosterDiv = document.getElementById('moviePoster');
-        const movieTextDiv = document.getElementById('movieText');
-        moviePosterDiv.innerHTML = '';
-        movieTextDiv.innerHTML = '';
-        }
+          function clearCurrentMovie() {
+          const moviePosterDiv = document.getElementById('moviePoster');
+          const movieTextDiv = document.getElementById('movieText');
+          moviePosterDiv.innerHTML = '';
+          movieTextDiv.innerHTML = '';
+          }
 
-        function likeMovie() {
-        clearCurrentMovie();
-        showRandomMovie();
-        }
+          function likeMovie() {
+          clearCurrentMovie();
+          showRandomMovie();
+          }
 
-        function dislikeMovie() {
-        clearCurrentMovie();
-        showRandomMovie();
-        }
+        
 
-        function createMoviePoster(posterPath) {
-        const moviePosterUrl = `https://image.tmdb.org/t/p/original/${posterPath}`;
+          function createMoviePoster(posterPath) {
+          const moviePosterUrl = `https://image.tmdb.org/t/p/original/${posterPath}`;
 
-        const posterImg = document.createElement('img');
-        posterImg.setAttribute('src', moviePosterUrl);
-        posterImg.setAttribute('id', 'moviePoster');
+          const posterImg = document.createElement('img');
+          posterImg.setAttribute('src', moviePosterUrl);
+          posterImg.setAttribute('id', 'moviePoster');
 
-        return posterImg;
-        }
+          return posterImg;
+          }
 
-        function createMovieTitle(title) {
-        const titleHeader = document.createElement('h1');
-        titleHeader.setAttribute('id', 'movieTitle');
-        titleHeader.innerHTML = title;
+          function createMovieTitle(title) {
+          const titleHeader = document.createElement('h1');
+          titleHeader.setAttribute('id', 'movieTitle');
+          titleHeader.innerHTML = title;
 
-        return titleHeader;
-        }
+          return titleHeader;
+          }
 
-        function createMovieOverview(overview) {
-        const overviewParagraph = document.createElement('p');
-        overviewParagraph.setAttribute('id', 'movieOverview');
-        overviewParagraph.innerHTML = overview;
+          function createMovieOverview(overview) {
+          const overviewParagraph = document.createElement('p');
+          overviewParagraph.setAttribute('id', 'movieOverview');
+          overviewParagraph.innerHTML = overview;
 
-        return overviewParagraph;
-        }
+          return overviewParagraph;
+          }
 
-        function getRandomMovie(movies) {
-        const randomIndex = Math.floor(Math.random() * movies.length);
-        const randomMovie = movies[randomIndex];
-        return randomMovie;
-        }
+          function getRandomMovie(movies) {
+          const randomIndex = Math.floor(Math.random() * movies.length);
+          const randomMovie = movies[randomIndex];
+          return randomMovie;
+          }
 
-        function displayMovie(movieInfo) {
-        const moviePosterDiv = document.getElementById('moviePoster');
-        const movieTextDiv = document.getElementById('movieText');
-        const likeBtn = document.getElementById('likeBtn');
-        const dislikeBtn = document.getElementById('dislikeBtn');
+          function displayMovie(movieInfo) {
+          const moviePosterDiv = document.getElementById('moviePoster');
+          const movieTextDiv = document.getElementById('movieText');
+          const likeBtn = document.getElementById('likeBtn');
+          const dislikeBtn = document.getElementById('dislikeBtn');
 
-        const moviePoster = createMoviePoster(movieInfo.poster_path);
-        const titleHeader = createMovieTitle(movieInfo.title);
-        const overviewText = createMovieOverview(movieInfo.overview);
+          const moviePoster = createMoviePoster(movieInfo.poster_path);
+          const titleHeader = createMovieTitle(movieInfo.title);
+          const overviewText = createMovieOverview(movieInfo.overview);
 
-        moviePosterDiv.appendChild(moviePoster);
-        movieTextDiv.appendChild(titleHeader);
-        movieTextDiv.appendChild(overviewText);
+          moviePosterDiv.appendChild(moviePoster);
+          movieTextDiv.appendChild(titleHeader);
+          movieTextDiv.appendChild(overviewText);
 
-        showBtns();
-        likeBtn.onclick = likeMovie;
-        dislikeBtn.onclick = dislikeMovie;
-        }
+          showBtns();
+          likeBtn.onclick = likeMovie;
+          dislikeBtn.onclick = dislikeMovie;
+          }
 
-        const tmdbKey = 'c22aa0f213207dbeadf7ec9f7e41ef84';
-        const tmdbBaseUrl = 'https://api.themoviedb.org/3/';
-        const playBtn = document.getElementById('playBtn');
+          const tmdbKey = 'c22aa0f213207dbeadf7ec9f7e41ef84';
+          const tmdbBaseUrl = 'https://api.themoviedb.org/3/';
+          const playBtn = document.getElementById('playBtn');
 
-        function getGenres() {
-        const genreRequestEndpoint = 'genre/movie/list';
-        const requestParams = `?api_key=${tmdbKey}`;
-        const urlToFetch = tmdbBaseUrl + genreRequestEndpoint + requestParams;
+          function getGenres() {
+          const genreRequestEndpoint = 'genre/movie/list';
+          const requestParams = `?api_key=${tmdbKey}`;
+          const urlToFetch = tmdbBaseUrl + genreRequestEndpoint + requestParams;
 
-        const xhr = new XMLHttpRequest();
-        xhr.open('GET', urlToFetch, true);
-        xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-        const jsonResponse = JSON.parse(xhr.responseText);
-        populateGenreDropdown(jsonResponse.genres);
-        }
-        };
-        xhr.send();
-        }
+          const xhr = new XMLHttpRequest();
+          xhr.open('GET', urlToFetch, true);
+          xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+          const jsonResponse = JSON.parse(xhr.responseText);
+          populateGenreDropdown(jsonResponse.genres);
+          }
+          };
+          xhr.send();
+          }
 
-        function getMovies() {
-        const selectedGenre = getSelectedGenre();
-        const discoverMovieEndpoint = 'discover/movie';
-        const requestParams = `?api_key=${tmdbKey}&with_genres=${selectedGenre}`;
-        const urlToFetch = tmdbBaseUrl + discoverMovieEndpoint + requestParams;
+          function getMovies() {
+          const selectedGenre = getSelectedGenre();
+          const discoverMovieEndpoint = 'discover/movie';
+          const requestParams = `?api_key=${tmdbKey}&with_genres=${selectedGenre}`;
+          const urlToFetch = tmdbBaseUrl + discoverMovieEndpoint + requestParams;
 
-        const xhr = new XMLHttpRequest();
-        xhr.open('GET', urlToFetch, true);
-        xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-        const jsonResponse = JSON.parse(xhr.responseText);
-        const movies = jsonResponse.results;
-        const randomMovie = getRandomMovie(movies);
-        getMovieInfo(randomMovie);
-        }
-        };
-        xhr.send();
-        }
+          const xhr = new XMLHttpRequest();
+          xhr.open('GET', urlToFetch, true);
+          xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+          const jsonResponse = JSON.parse(xhr.responseText);
+          const movies = jsonResponse.results;
+          const randomMovie = getRandomMovie(movies);
+          getMovieInfo(randomMovie);
+          }
+          };
+          xhr.send();
+          }
 
-        function getMovieInfo(movie) {
-        const movieId = movie.id;
-        const movieEndpoint = `movie/${movieId}`;
-        const requestParams = `?api_key=${tmdbKey}`;
-        const urlToFetch = tmdbBaseUrl + movieEndpoint + requestParams;
+          function getMovieInfo(movie) {
+          const movieId = movie.id;
+          const movieEndpoint = `movie/${movieId}`;
+          const requestParams = `?api_key=${tmdbKey}`;
+          const urlToFetch = tmdbBaseUrl + movieEndpoint + requestParams;
 
-        const xhr = new XMLHttpRequest();
-        xhr.open('GET', urlToFetch, true);
-        xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-        const movieInfo = JSON.parse(xhr.responseText);
-        displayMovie(movieInfo);
-        }
-        };
-        xhr.send();
-        }
+          const xhr = new XMLHttpRequest();
+          xhr.open('GET', urlToFetch, true);
+          xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+          const movieInfo = JSON.parse(xhr.responseText);
+          displayMovie(movieInfo);
+          }
+          };
+          xhr.send();
+          }
 
-        function showRandomMovie() {
-        const movieInfo = document.getElementById('movieInfo');
-        if (movieInfo.childNodes.length > 0) {
-        clearCurrentMovie();
-        }
+          function showRandomMovie() {
+          const movieInfo = document.getElementById('movieInfo');
+          if (movieInfo.childNodes.length > 0) {
+          clearCurrentMovie();
+          }
 
-        getMovies();
-        }
+          getMovies();
+          }
 
-        getGenres();
-        playBtn.onclick = showRandomMovie;
-    </script>
-  </body>
-</html>
+          getGenres();
+          playBtn.onclick = showRandomMovie;
+      </script>
+    </body>
+  </html>
