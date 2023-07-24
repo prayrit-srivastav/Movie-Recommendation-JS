@@ -3,11 +3,6 @@
     <head>
       <meta charset="utf-8">
       <title>Movie Recommendation</title>
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400&family=Fredoka+One&family=Questrial&family=Staatliches&display=swap" rel="stylesheet">
-      <script src="https://kit.fontawesome.com/e918d10e90.js" crossorigin="anonymous"></script>
-      <!-- <script defer src="public/helper.js"></script> -->
       <style>
           body {
           background-color: #eb6882;
@@ -124,7 +119,6 @@
       </div>
       <div id="likeOrDislikeBtns" hidden>
         <button id="likeBtn">Next</button>
-        <!-- <button id="dislikeBtn"><i class="fa-solid fa-thumbs-down"></i></button> -->
       </div>
       <script>
                   
@@ -160,9 +154,6 @@
           clearCurrentMovie();
           showRandomMovie();
           }
-
-        
-
           function createMoviePoster(posterPath) {
           const moviePosterUrl = `https://image.tmdb.org/t/p/original/${posterPath}`;
 
@@ -199,7 +190,6 @@
           const moviePosterDiv = document.getElementById('moviePoster');
           const movieTextDiv = document.getElementById('movieText');
           const likeBtn = document.getElementById('likeBtn');
-          const dislikeBtn = document.getElementById('dislikeBtn');
 
           const moviePoster = createMoviePoster(movieInfo.poster_path);
           const titleHeader = createMovieTitle(movieInfo.title);
@@ -211,7 +201,6 @@
 
           showBtns();
           likeBtn.onclick = likeMovie;
-          dislikeBtn.onclick = dislikeMovie;
           }
 
           const tmdbKey = 'c22aa0f213207dbeadf7ec9f7e41ef84';
@@ -279,8 +268,8 @@
           getMovies();
           }
 
-          getGenres();
-          playBtn.onclick = showRandomMovie;
+        getGenres();
+        playBtn.onclick = showRandomMovie;
       </script>
     </body>
   </html>

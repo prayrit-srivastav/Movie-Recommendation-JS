@@ -51,7 +51,7 @@ function populateGenreDropdown(genres) {
     const titleHeader = document.createElement('h1');
     titleHeader.setAttribute('id', 'movieTitle');
     titleHeader.innerHTML = title;
-  
+
     return titleHeader;
   }
   
